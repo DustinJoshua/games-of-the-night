@@ -2,24 +2,21 @@ import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Card from "@material-ui/core/Card";
 import CardActionArea from "@material-ui/core/CardActionArea";
-import CardActions from "@material-ui/core/CardActions";
 import CardContent from "@material-ui/core/CardContent";
 import CardMedia from "@material-ui/core/CardMedia";
-import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
 import TrendingUpIcon from "@material-ui/icons/TrendingUp";
 import TrendingDownIcon from "@material-ui/icons/TrendingDown";
-import { Avatar, IconButton, CircularProgress } from "@material-ui/core";
+import { IconButton, CircularProgress } from "@material-ui/core";
 import { useState } from "react";
-import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
-import Collapse from "@material-ui/core/Collapse";
-import clsx from "clsx";
 import axios from "axios";
+// import CardActions from "@material-ui/core/CardActions";
+// import Collapse from "@material-ui/core/Collapse";
+// import clsx from "clsx";
+// import Button from "@material-ui/core/Button";
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    // maxWidth: 345,
-    // minwidth: "900px",
     height: "auto",
     width: "330px",
     margin: "1rem",
@@ -43,6 +40,24 @@ const useStyles = makeStyles((theme) => ({
   expandOpen: {
     margin: "auto",
   },
+  cardContainer: {
+    backgroundColor: "#eee",
+  },
+  ratingContainer: {
+    display: "flex",
+    justifyContent: "space-between",
+    alignItems: "center",
+  },
+  upVote: {
+    marginLeft: "2rem",
+  },
+  downVote: {
+    marginRight: "2rem",
+  },
+  infoContainer: {
+    display: "flex",
+    margin: ".5rem",
+  },
 }));
 
 export default function GameCard(props) {
@@ -58,11 +73,11 @@ export default function GameCard(props) {
   } = props;
 
   const [rating, setRating] = useState(initialRating);
-  const [expanded, setExpanded] = useState(false);
+  // const [expanded, setExpanded] = useState(false);
 
-  const handleExpandClick = () => {
-    setExpanded(!expanded);
-  };
+  // const handleExpandClick = () => {
+  //   setExpanded(!expanded);
+  // };
 
   const handleUpvoteClick = () => {
     setRating((prevRating) => prevRating + 1);
@@ -78,23 +93,14 @@ export default function GameCard(props) {
 
   return (
     <Card className={classes.root}>
-      <div style={{ backgroundColor: "#eee" }}>
-        <div
-          style={{
-            display: "flex",
-            justifyContent: "space-between",
-            alignItems: "center",
-          }}
-        >
-          <IconButton
-            style={{ marginLeft: "2rem" }}
-            onClick={handleUpvoteClick}
-          >
+      <div className={classes.cardContainer}>
+        <div className={classes.ratingContainer}>
+          <IconButton className={classes.upVote} onClick={handleUpvoteClick}>
             <TrendingUpIcon fontSize="large" color="primary" />
           </IconButton>
           <h2>{rating}</h2>
           <IconButton
-            style={{ marginRight: "2rem" }}
+            className={classes.downVote}
             onClick={handleDownvoteClick}
           >
             <TrendingDownIcon fontSize="large" color="secondary" />
@@ -102,7 +108,7 @@ export default function GameCard(props) {
         </div>
         <div>
           <CardActionArea>
-            <div style={{ display: "flex", margin: ".5rem" }}>
+            <div className={classes.infoContainer}>
               {homeImg ? (
                 <CardMedia
                   className={classes.media1}

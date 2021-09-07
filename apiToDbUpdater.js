@@ -5,7 +5,6 @@ const { Game } = require("./models/game");
 //Schedules an Api call to ensure the database is up to date.  This is just a cost reducing measure.
 function cronScheduleApiPull() {
   cron.schedule("30 12,14,16,17,18,19,20,21,22,23 * * *", async () => {
-    console.log("started cron");
     const options = {
       method: "GET",
       url: "https://api-nba-v1.p.rapidapi.com/games/seasonYear/2021",
@@ -30,8 +29,7 @@ function cronScheduleApiPull() {
             rating: 0,
           };
         });
-        //compares the new array of game objects to the DB and adds new documents if they don't exist already.
-        console.log("promises", promises);
+        //Compares the new array of game objects to the DB and adds new documents if they don't exist already.
         Promise.all(promises).then(function (transformedGames) {
           transformedGames.forEach((game) => {
             Game.findOrCreate(
@@ -56,7 +54,6 @@ function cronScheduleApiPull() {
       .catch(function (error) {
         console.error(error);
       });
-    console.log("cron");
   });
 }
 module.exports.cronScheduleApiPull = cronScheduleApiPull;

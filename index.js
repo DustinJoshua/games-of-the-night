@@ -7,7 +7,6 @@ const games = require("./routes/games");
 const { cronScheduleApiPull } = require("./apiToDbUpdater");
 
 const uri = process.env.MONGO_URI;
-console.log(uri);
 
 mongoose
   .connect(uri, { useNewUrlParser: true, useUnifiedTopology: true })

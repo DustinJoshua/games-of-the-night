@@ -1,74 +1,54 @@
 import React, { useEffect } from "react";
 import GameCard from "./GameCard";
-import styles from "./GamesList.module.css";
-// import Raptors from "../content/images/Raptors.png";
-// import Lakers from "../content/images/Lakers.png";
-// import Hawks from "../content/images/Hawks.png";
-// import Celtics from "../content/images/Celtics.png";
-// import Nets from "../content/images/Nets.png";
-// import Hornets from "../content/images/Hornets.png";
-// import Bulls from "../content/images/Bulls.png";
-// import Knicks from "../content/images/Knicks.png";
 import { useState } from "react";
 import axios from "axios";
 import AppPagination from "./AppPagination";
 import { paginate } from "../utils/paginate";
 import FilterTeamSelect from "./FilterTeamSelect";
+import { makeStyles } from "@material-ui/core/styles";
 
-// const DUMMY_GAMES = [
-//   {
-//     id: 1,
-//     homeTeam: "Toronto",
-//     awayTeam: "LA",
-//     homeImg: Raptors,
-//     awayImg: Lakers,
-//     rating: 5,
-//     date: new Date("2019, 05, 19").toDateString(),
-//   },
-//   {
-//     id: 2,
-//     homeTeam: "Atlanta",
-//     awayTeam: "Boston",
-//     homeImg: Hawks,
-//     awayImg: Celtics,
-//     rating: 12,
-//     date: new Date("2019, 05, 19").toDateString(),
-//   },
-//   {
-//     id: 3,
-//     homeTeam: "Charlotte",
-//     awayTeam: "Brooklyn",
-//     homeImg: Hornets,
-//     awayImg: Nets,
-//     rating: 2,
-//     date: new Date("2019, 05, 18").toDateString(),
-//   },
-//   {
-//     id: 4,
-//     homeTeam: "Chicago",
-//     awayTeam: "New York",
-//     homeImg: Bulls,
-//     awayImg: Knicks,
-//     rating: -10,
-//     date: new Date("2019, 05, 18").toDateString(),
-//   },
-// ];
+const useStyles = makeStyles((theme) => ({
+  container: {
+    width: "100%",
+    maxWidth: "900px",
+    alignContent: "center",
+    margin: "auto",
+    paddingTop: "1rem",
+    backgroundImage:
+      "linear-gradient(to right, rgb(61, 5, 61), rgb(114, 40, 184), rgb(61, 5, 61))",
+    display: "flex",
+    justifyContent: "space-around",
+    flexWrap: "wrap",
+    borderRadius: "8px 8px 0px 0px",
+  },
+}));
 
 const GamesList = () => {
   const [games, setGames] = useState([]);
-  const [totalGamesLoaded, setTotalGamesLoaded] = useState(0);
-  const [gamesPerPage, setGamesPerPage] = useState(15);
+  // const [totalGamesLoaded, setTotalGamesLoaded] = useState(0);
+  const [gamesPerPage] = useState(15);
   const [currentPage, setCurrentPage] = useState(1);
   const [selectedTeam, setSelectedTeam] = useState("");
 
-  useEffect(async () => {
-    try {
+  const classes = useStyles();
+
+  // useEffect(async () => {
+  //   try {
+  //     const response = await axios.get("/api/games");
+  //     setGames(response.data);
+  //     // setTotalGamesLoaded(response.data.length);
+  //   } catch (error) {
+  //     console.error(error);
+  //   }
+  // }, []);
+
+  useEffect(() => {
+    async function fetchData() {
       const response = await axios.get("/api/games");
       setGames(response.data);
-      setTotalGamesLoaded(response.data.length);
-    } catch (error) {
-      console.error(error);
+      // setTotalGamesLoaded(response.data.length);
     }
+    fetchData();
   }, []);
 
   const handleTeamChange = (event) => {
@@ -95,7 +75,7 @@ const GamesList = () => {
         onTeamChange={handleTeamChange}
         selectedTeam={selectedTeam}
       />
-      <div className={styles.container}>
+      <div className={classes.container}>
         {paginatedGames.map((game) => (
           <GameCard
             key={game.gameId}

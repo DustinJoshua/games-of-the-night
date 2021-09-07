@@ -1,10 +1,9 @@
 import GamesList from "./components/GamesList";
 import Navbar from "./components/Header";
-import styles from "./App.module.css";
 
 function App() {
   return (
-    <div className={styles.App}>
+    <div>
       <Navbar />
       <GamesList />
     </div>

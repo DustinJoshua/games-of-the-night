@@ -1,12 +1,9 @@
 import React from "react";
 import Pagination from "@material-ui/lab/Pagination";
 import { makeStyles } from "@material-ui/core";
-import _ from "lodash";
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    // position: "fixed",
-    // bottom: 0,
     zIndex: 200,
     backgroundColor: "white",
     padding: "10px 80px",

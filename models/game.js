@@ -17,11 +17,9 @@ const gameSchema = new mongoose.Schema({
   },
   homeImg: {
     type: String,
-    // required: true,
   },
   awayImg: {
     type: String,
-    // required: true,
   },
   rating: {
     type: Number,
